@@ -3,24 +3,44 @@
         "name": "add",
         "args": 2,
         "lines": 3,
-        "has_docstring": true
+        "has_docstring": true,
+        "num_if": 0,
+        "num_loops": 0,
+        "num_calls": 0,
+        "num_returns": 1,
+        "has_try": false
     },
     {
         "name": "multiply",
         "args": 2,
         "lines": 3,
-        "has_docstring": false
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "num_calls": 0,
+        "num_returns": 1,
+        "has_try": false
     },
     {
         "name": "divide",
         "args": 2,
         "lines": 5,
-        "has_docstring": true
+        "has_docstring": true,
+        "num_if": 1,
+        "num_loops": 0,
+        "num_calls": 0,
+        "num_returns": 2,
+        "has_try": false
     },
     {
         "name": "greet_user",
         "args": 1,
         "lines": 2,
-        "has_docstring": false
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "num_calls": 1,
+        "num_returns": 0,
+        "has_try": false
     }
 ]
