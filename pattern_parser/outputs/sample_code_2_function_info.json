@@ -6,6 +6,7 @@
         "has_docstring": true,
         "num_if": 1,
         "num_loops": 0,
+        "loop_locations": [],
         "num_calls": 1,
         "num_returns": 2,
         "has_try": false
@@ -17,6 +18,7 @@
         "has_docstring": false,
         "num_if": 0,
         "num_loops": 0,
+        "loop_locations": [],
         "num_calls": 0,
         "num_returns": 1,
         "has_try": false
@@ -28,6 +30,12 @@
         "has_docstring": false,
         "num_if": 0,
         "num_loops": 1,
+        "loop_locations": [
+            {
+                "type": "for",
+                "lineno": 11
+            }
+        ],
         "num_calls": 1,
         "num_returns": 0,
         "has_try": false
@@ -39,6 +47,7 @@
         "has_docstring": false,
         "num_if": 0,
         "num_loops": 0,
+        "loop_locations": [],
         "num_calls": 0,
         "num_returns": 0,
         "has_try": false
