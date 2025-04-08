@@ -1,0 +1,26 @@
+[
+    {
+        "name": "factorial",
+        "args": 1,
+        "lines": 5,
+        "has_docstring": true
+    },
+    {
+        "name": "is_even",
+        "args": 1,
+        "lines": 2,
+        "has_docstring": false
+    },
+    {
+        "name": "print_list",
+        "args": 1,
+        "lines": 3,
+        "has_docstring": false
+    },
+    {
+        "name": "dummy",
+        "args": 0,
+        "lines": 2,
+        "has_docstring": false
+    }
+]
