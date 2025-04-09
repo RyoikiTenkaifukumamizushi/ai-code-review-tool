@@ -1,42 +1,146 @@
-#root {
-  max-width: 1280px;
-  margin: 0 auto;
+html, body, #root {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+  font-family: 'Inter', sans-serif;
+  background: linear-gradient(135deg, #0f172a, #1e293b);
+  color: white;
+  overflow: hidden;
+}
+
+/* Layout wrapper */
+.app-wrapper {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
   padding: 2rem;
+  box-sizing: border-box;
+  position: relative;
+}
+
+/* Header section */
+.app-header {
   text-align: center;
+  margin-bottom: 1.5rem;
 }
 
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.react:hover {
-  filter: drop-shadow(0 0 2em #61dafbaa);
+.app-header h1 {
+  font-size: 2rem;
+  font-weight: 700;
+  background: linear-gradient(to right, #60a5fa, #818cf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
 }
 
-@keyframes logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.app-header p {
+  color: #cbd5e1;
+  font-size: 1rem;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  a:nth-of-type(2) .logo {
-    animation: logo-spin infinite 20s linear;
-  }
+/* Feedback/Warning */
+.feedback-box {
+  color: #facc15;
+  background-color: #1f2937;
+  border: 1px solid #fde68a;
+  border-radius: 10px;
+  padding: 0.75rem 1rem;
+  font-size: 0.95rem;
+  margin: 0 auto 1rem auto;
+  width: 60%;
+  max-width: 90%;
+  text-align: left;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
 }
 
-.card {
-  padding: 2em;
+/* Editor container */
+.editor-container {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
 }
 
-.read-the-docs {
-  color: #888;
+/* Textarea wrapper to hold button inside */
+.textarea-wrapper {
+  position: relative;
+  width: 60%;
+  min-width: 600px;
+  max-width: 90%;
+}
+
+/* Textarea styles */
+.nice-textarea {
+  width: 100%;
+  min-height: 12rem; /* ~7-8 lines */
+  border-radius: 14px;
+  border: none;
+  padding: 1rem;
+  font-family: monospace;
+  font-size: 1rem;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  resize: vertical;
+  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
+}
+
+.nice-textarea:focus {
+  outline: none;
+  box-shadow: 0 0 18px rgba(99, 102, 241, 0.6);
+}
+
+/* File button inside textarea */
+.file-upload-btn {
+  position: absolute;
+  bottom: 12px;
+  right: 12px;
+  background: #334155;
+  border: none;
+  border-radius: 50%;
+  padding: 0.5rem;
+  cursor: pointer;
+  color: #f1f5f9;
+  transition: background 0.2s ease;
+}
+.file-upload-btn:hover {
+  background: #475569;
+}
+
+
+
+/* Shrink and reposition the submit button */
+.btn-gradient {
+  margin-top: 1rem;
+  background: linear-gradient(to right, #6366f1, #3b82f6);
+  border: none;
+  color: white;
+  padding: 0.5rem 1.2rem;
+  border-radius: 10px;
+  font-weight: 600;
+  font-size: 0.95rem;
+  cursor: pointer;
+  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  display: inline-block;
+}
+
+.btn-gradient:hover {
+  transform: scale(1.03);
+  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.6);
+}
+
+/* Show loading feedback visibly */
+.loading-text {
+  color: #fbbf24;
+  font-size: 0.95rem;
+  margin-top: 0.75rem;
+  text-align: center;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
 }
