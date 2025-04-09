@@ -8,18 +8,14 @@ html, body, #root {
   overflow: hidden;
 }
 
-/* Layout wrapper */
 .app-wrapper {
   display: flex;
   flex-direction: column;
   height: 100%;
-  width: 100%;
   padding: 2rem;
   box-sizing: border-box;
-  position: relative;
 }
 
-/* Header section */
 .app-header {
   text-align: center;
   margin-bottom: 1.5rem;
@@ -38,78 +34,82 @@ html, body, #root {
   font-size: 1rem;
 }
 
-/* Feedback/Warning */
-.feedback-box {
-  color: #facc15;
-  background-color: #1f2937;
-  border: 1px solid #fde68a;
-  border-radius: 10px;
-  padding: 0.75rem 1rem;
-  font-size: 0.95rem;
-  margin: 0 auto 1rem auto;
-  width: 60%;
-  max-width: 90%;
-  text-align: left;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-}
-
-/* Editor container */
-.editor-container {
+.editor-area {
   flex-grow: 1;
   display: flex;
-  flex-direction: column;
-  align-items: center;
-  position: relative;
+  justify-content: center;
+  align-items: stretch;
+  transition: all 0.3s ease;
 }
 
-/* Textarea wrapper to hold button inside */
+.editor-section {
+  transition: width 0.3s ease;
+  padding-right: 1rem;
+}
+
+.output-section {
+  padding-left: 1rem;
+  overflow-y: auto;
+}
+
+.output-section::-webkit-scrollbar {
+  width: 10px;
+}
+.output-section::-webkit-scrollbar-thumb {
+  background: #64748b;
+  border-radius: 8px;
+}
+.output-section::-webkit-scrollbar-thumb:hover {
+  background: #94a3b8;
+}
+
 .textarea-wrapper {
   position: relative;
-  width: 60%;
-  min-width: 600px;
-  max-width: 90%;
+  background: #1e293b;
+  border-radius: 12px;
 }
 
-/* Textarea styles */
-.nice-textarea {
-  width: 100%;
-  min-height: 12rem; /* ~7-8 lines */
-  border-radius: 14px;
-  border: none;
-  padding: 1rem;
-  font-family: monospace;
-  font-size: 1rem;
-  background-color: #1e293b;
-  color: #f1f5f9;
-  resize: vertical;
-  box-shadow: 0 0 12px rgba(0, 0, 0, 0.5);
-}
-
-.nice-textarea:focus {
-  outline: none;
-  box-shadow: 0 0 18px rgba(99, 102, 241, 0.6);
-}
-
-/* File button inside textarea */
 .file-upload-btn {
   position: absolute;
-  bottom: 12px;
-  right: 12px;
+  bottom: 10px;
+  right: 10px;
   background: #334155;
   border: none;
   border-radius: 50%;
   padding: 0.5rem;
-  cursor: pointer;
   color: #f1f5f9;
-  transition: background 0.2s ease;
+  cursor: pointer;
 }
+
 .file-upload-btn:hover {
   background: #475569;
 }
 
+.file-preview {
+  margin-top: 1rem;
+}
 
+.file-info {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
 
-/* Shrink and reposition the submit button */
+.text-muted {
+  font-size: 0.9rem;
+  color: #94a3b8;
+}
+
+.btn-remove {
+  margin-left: auto;
+  background: transparent;
+  border: 1px solid #f87171;
+  color: #f87171;
+  padding: 0.2rem 0.6rem;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
 .btn-gradient {
   margin-top: 1rem;
   background: linear-gradient(to right, #6366f1, #3b82f6);
@@ -120,27 +120,76 @@ html, body, #root {
   font-weight: 600;
   font-size: 0.95rem;
   cursor: pointer;
-  box-shadow: 0 3px 10px rgba(99, 102, 241, 0.4);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
-  display: inline-block;
 }
 
-.btn-gradient:hover {
-  transform: scale(1.03);
-  box-shadow: 0 6px 16px rgba(99, 102, 241, 0.6);
-}
-
-/* Show loading feedback visibly */
-.loading-text {
-  color: #fbbf24;
+.feedback-box {
+  background-color: #1f2937;
+  border: 1px solid #fde68a;
+  color: #facc15;
+  border-radius: 10px;
+  padding: 1rem;
   font-size: 0.95rem;
-  margin-top: 0.75rem;
-  text-align: center;
-  animation: pulse 1.5s infinite;
+  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
+  max-height: 100%;
+  overflow-y: auto;
 }
 
-@keyframes pulse {
-  0% { opacity: 0.6; }
-  50% { opacity: 1; }
-  100% { opacity: 0.6; }
+.spinner-container {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.spinner {
+  width: 20px;
+  height: 20px;
+  border: 3px solid #cbd5e1;
+  border-top-color: #38bdf8;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Clean, dot-free vertical resizer */
+.resizer {
+  width: 6px;
+  background-color: #475569;
+  cursor: col-resize;
+  transition: background-color 0.3s ease;
+  position: relative;
+}
+
+.resizer:hover {
+  background-color: #64748b;
+  box-shadow: 0 0 6px rgba(100, 116, 139, 0.6);
+}
+
+.resizer::before,
+.resizer::after {
+  content: none !important;
+  display: none !important;
+}
+
+/* Center editor both vertically & horizontally when no output */
+.editor-area.initial-center {
+  justify-content: center;
+  align-items: center;
+  padding-bottom: 20vh;
+}
+
+/* Shrink initial input width */
+.editor-area.initial-center .editor-section {
+  width: 60% !important;
+  min-width: 600px;
+}
+
+.submit-wrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
 }

@@ -1,4 +1,6 @@
-import { useState, useRef } from 'react';
+import { useRef, useState } from 'react';
+import CodeMirror from '@uiw/react-codemirror';
+import { python } from '@codemirror/lang-python';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
 import './App.css';
 
@@ -7,16 +9,41 @@ function App() {
   const [loading, setLoading] = useState(false);
   const [feedback, setFeedback] = useState("");
   const [file, setFile] = useState(null);
+  const [showOutput, setShowOutput] = useState(false);
   const fileInputRef = useRef();
+
+  const [leftWidth, setLeftWidth] = useState(50); // in %
+
+  const handleMouseDown = (e) => {
+    const startX = e.clientX;
+    const startWidth = leftWidth;
+  
+    const handleMouseMove = (e) => {
+      const delta = e.clientX - startX;
+      const newLeft = Math.min(80, Math.max(20, startWidth + (delta / window.innerWidth) * 100));
+      setLeftWidth(newLeft);
+    };
+  
+    const handleMouseUp = () => {
+      window.removeEventListener('mousemove', handleMouseMove);
+      window.removeEventListener('mouseup', handleMouseUp);
+    };
+  
+    window.addEventListener('mousemove', handleMouseMove);
+    window.addEventListener('mouseup', handleMouseUp);
+  };
+  
+  
+  
 
   const handleSubmit = () => {
     if (code.trim() === "" && !file) {
       setFeedback("⚠️ Please enter some code to review.");
       return;
     }
-
     setLoading(true);
     setFeedback("");
+    setShowOutput(true);
 
     setTimeout(() => {
       setLoading(false);
@@ -29,13 +56,6 @@ function App() {
     if (selectedFile) setFile(selectedFile);
   };
 
-  const handleDrop = (e) => {
-    e.preventDefault();
-    const droppedFile = e.dataTransfer.files[0];
-    if (droppedFile) setFile(droppedFile);
-  };
-
-  const handleDragOver = (e) => e.preventDefault();
   const removeFile = () => setFile(null);
 
   return (
@@ -45,59 +65,72 @@ function App() {
         <p>Paste your code below or upload a file for review</p>
       </div>
 
-      <div className="editor-container">
-        <div className="textarea-wrapper">
-          <textarea
-            className="nice-textarea"
-            placeholder="Paste your code here or drop a file..."
-            value={code}
-            onChange={(e) => setCode(e.target.value)}
-            onDrop={handleDrop}
-            onDragOver={handleDragOver}
-            rows={8}
-          />
-          <button
-            className="file-upload-btn"
-            onClick={() => fileInputRef.current.click()}
-          >
-            <AttachFileIcon fontSize="small" />
-          </button>
-          <input
-            type="file"
-            accept=".txt,.py,.js,.java,.cpp"
-            ref={fileInputRef}
-            onChange={handleFileChange}
-            style={{ display: "none" }}
-          />
-        </div>
-
-        {/* File preview (optional) */}
-        {file && (
-          <div className="file-preview">
-            <div className="d-flex align-items-center gap-2">
-              <AttachFileIcon color="primary" />
-              <div>
-                <strong>{file.name}</strong>
-                <div className="text-muted" style={{ fontSize: "0.9em" }}>
-                  {(file.size / 1024).toFixed(1)} KB
-                </div>
-              </div>
-              <button className="btn btn-sm btn-outline-danger ms-auto" onClick={removeFile}>
-                Remove
-              </button>
-            </div>
+      <div className={`editor-area ${showOutput ? 'split' : 'initial-center'}`}>
+        <div className="editor-section" style={{ width: showOutput ? `${leftWidth}%` : "90%" }}>
+          <div className="textarea-wrapper">
+            <CodeMirror
+              value={code}
+              height="500px"
+              extensions={[python()]}
+              onChange={(value) => setCode(value)}
+              theme="dark"
+            />
+            <button
+              className="file-upload-btn"
+              onClick={() => fileInputRef.current.click()}
+            >
+              <AttachFileIcon fontSize="small" />
+            </button>
+            <input
+              type="file"
+              accept=".py"
+              ref={fileInputRef}
+              onChange={handleFileChange}
+              style={{ display: "none" }}
+            />
           </div>
-        )}
 
-        {/* Submit Button */}
-        <button onClick={handleSubmit} className="btn-gradient">
-          🚀 Submit for Review
-        </button>
+          {file && (
+            <div className="file-preview">
+              <div className="file-info">
+                <AttachFileIcon color="primary" />
+                <div>
+                  <strong>{file.name}</strong>
+                  <div className="text-muted">
+                    {(file.size / 1024).toFixed(1)} KB
+                  </div>
+                </div>
+                <button className="btn-remove" onClick={removeFile}>Remove</button>
+              </div>
+            </div>
+          )}
 
-        {/* Feedback or warning BELOW the button */}
-        <div className="feedback-box">
-          {loading ? "🔄 Reviewing your code, please wait..." : feedback || "Feedback will appear here."}
+        <div className="submit-wrapper">
+          <button onClick={handleSubmit} className="btn-gradient">
+            🚀 Submit for Review
+          </button>
         </div>
+
+        </div>
+
+        {showOutput && (
+          <>
+            <div className="resizer" onMouseDown={handleMouseDown} />
+
+            <div className="output-section" style={{ width: `${100 - leftWidth}%` }}>
+              <div className="feedback-box">
+                {loading ? (
+                  <div className="spinner-container">
+                    <div className="spinner" />
+                    <p>Analyzing your code...</p>
+                  </div>
+                ) : (
+                  feedback || "Feedback will appear here."
+                )}
+              </div>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
