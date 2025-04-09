@@ -1,0 +1,32 @@
+[
+    {
+        "name": "add",
+        "args": 2,
+        "lines": 2,
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "loop_locations": [],
+        "num_calls": 0,
+        "num_returns": 1,
+        "has_try": false,
+        "cyclomatic_complexity": 1,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
+    },
+    {
+        "name": "divide",
+        "args": 2,
+        "lines": 5,
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "loop_locations": [],
+        "num_calls": 0,
+        "num_returns": 2,
+        "has_try": true,
+        "cyclomatic_complexity": 3,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
+    }
+]

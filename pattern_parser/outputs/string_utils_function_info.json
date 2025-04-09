@@ -1,0 +1,32 @@
+[
+    {
+        "name": "to_camel_case",
+        "args": 1,
+        "lines": 3,
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "loop_locations": [],
+        "num_calls": 3,
+        "num_returns": 1,
+        "has_try": false,
+        "cyclomatic_complexity": 1,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
+    },
+    {
+        "name": "count_vowels",
+        "args": 1,
+        "lines": 2,
+        "has_docstring": false,
+        "num_if": 0,
+        "num_loops": 0,
+        "loop_locations": [],
+        "num_calls": 2,
+        "num_returns": 1,
+        "has_try": false,
+        "cyclomatic_complexity": 1,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
+    }
+]

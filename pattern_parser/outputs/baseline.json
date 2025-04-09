@@ -1,10 +1,10 @@
 {
-    "function_count": 8,
-    "avg_lines": 3.125,
-    "avg_if": 0.25,
-    "avg_loops": 0.125,
-    "avg_calls": 0.375,
-    "avg_returns": 0.875,
+    "function_count": 17,
+    "avg_lines": 4.352941176470588,
+    "avg_if": 0.11764705882352941,
+    "avg_loops": 0.0,
+    "avg_calls": 2.1176470588235294,
+    "avg_returns": 1.0,
     "avg_comments": 0.0,
-    "try_block_ratio": 0.0
+    "try_block_ratio": 0.11764705882352941
 }
