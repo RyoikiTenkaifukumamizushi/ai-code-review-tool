@@ -1,0 +1,10 @@
+{
+    "function_count": 8,
+    "avg_lines": 3.125,
+    "avg_if": 0.25,
+    "avg_loops": 0.125,
+    "avg_calls": 0.375,
+    "avg_returns": 0.875,
+    "avg_comments": 0.0,
+    "try_block_ratio": 0.0
+}

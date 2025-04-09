@@ -1,0 +1,70 @@
+{
+    "sample_code_2_function_info.json": [
+        {
+            "function": "factorial",
+            "issues": [
+                "Too many lines (5 > avg 3.12)",
+                "Too many if-statements (1)",
+                "Too many function calls (1)",
+                "Too many return statements (2)",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "is_even",
+            "issues": [
+                "Missing docstring",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "print_list",
+            "issues": [
+                "Too many loops (1)",
+                "Too many function calls (1)",
+                "Missing docstring",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "dummy",
+            "issues": [
+                "Missing docstring",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        }
+    ],
+    "sample_code_3_function_info.json": [],
+    "sample_code_function_info.json": [
+        {
+            "function": "add",
+            "issues": [
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "multiply",
+            "issues": [
+                "Missing docstring",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "divide",
+            "issues": [
+                "Too many lines (5 > avg 3.12)",
+                "Too many if-statements (1)",
+                "Too many return statements (2)",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        },
+        {
+            "function": "greet_user",
+            "issues": [
+                "Too many function calls (1)",
+                "Missing docstring",
+                "No try block (baseline ratio: 0.00)"
+            ]
+        }
+    ]
+}

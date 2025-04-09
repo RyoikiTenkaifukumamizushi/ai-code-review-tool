@@ -9,7 +9,10 @@
         "loop_locations": [],
         "num_calls": 1,
         "num_returns": 2,
-        "has_try": false
+        "has_try": false,
+        "cyclomatic_complexity": 2,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
     },
     {
         "name": "is_even",
@@ -21,7 +24,10 @@
         "loop_locations": [],
         "num_calls": 0,
         "num_returns": 1,
-        "has_try": false
+        "has_try": false,
+        "cyclomatic_complexity": 1,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
     },
     {
         "name": "print_list",
@@ -38,7 +44,10 @@
         ],
         "num_calls": 1,
         "num_returns": 0,
-        "has_try": false
+        "has_try": false,
+        "cyclomatic_complexity": 2,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
     },
     {
         "name": "dummy",
@@ -50,6 +59,9 @@
         "loop_locations": [],
         "num_calls": 0,
         "num_returns": 0,
-        "has_try": false
+        "has_try": false,
+        "cyclomatic_complexity": 1,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
     }
 ]

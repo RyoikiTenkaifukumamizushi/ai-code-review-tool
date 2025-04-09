@@ -7,7 +7,7 @@ genai.configure(api_key="AIzaSyA3_F-cCPs-ZNuixetN463BVRqyPdWVjIk")  # Replace wi
 
 # Paths
 base_dir = os.path.dirname(__file__)
-json_dir = os.path.join(base_dir, "..", "outputs")
+json_dir = os.path.join(base_dir, "..", "new_outputs")
 output_dir = os.path.join(base_dir, "..", "review_results")
 
 # Create output folder if not exists
@@ -18,7 +18,7 @@ model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 
 # Loop through all JSON files in outputs/
 for file_name in os.listdir(json_dir):
-    if file_name.endswith(".json"):
+    if file_name == "new_code_analysis.json":
         json_path = os.path.join(json_dir, file_name)
 
         # Load the JSON data

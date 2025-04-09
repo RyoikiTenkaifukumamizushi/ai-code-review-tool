@@ -1,0 +1,22 @@
+[
+    {
+        "name": "fetch_data",
+        "args": 2,
+        "lines": 10,
+        "has_docstring": false,
+        "num_if": 1,
+        "num_loops": 1,
+        "loop_locations": [
+            {
+                "type": "for",
+                "lineno": 3
+            }
+        ],
+        "num_calls": 4,
+        "num_returns": 2,
+        "has_try": true,
+        "cyclomatic_complexity": 5,
+        "comment_count": 0,
+        "comments_per_line_ratio": 0.0
+    }
+]
