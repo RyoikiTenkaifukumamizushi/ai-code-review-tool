@@ -10,29 +10,53 @@ def load_baseline(baseline_path):
 def analyze_function_against_baseline(func, baseline):
     alerts = []
 
+    # Check number of lines
     if func["lines"] > baseline["avg_lines"] * THRESHOLD_FACTOR:
-        alerts.append(f"Too many lines ({func['lines']} > avg {baseline['avg_lines']:.2f})")
-    
+        alerts.append(f"❗ Too many lines ({func['lines']} > avg {baseline['avg_lines']:.2f})")
+    else:
+        alerts.append(f"✅ Number of lines is within range ({func['lines']} ≤ {baseline['avg_lines'] * THRESHOLD_FACTOR:.2f})")
+
+    # Check if-statements
     if func["num_if"] > baseline["avg_if"] * THRESHOLD_FACTOR:
-        alerts.append(f"Too many if-statements ({func['num_if']})")
-    
+        alerts.append(f"❗ Too many if-statements ({func['num_if']})")
+    else:
+        alerts.append(f"✅ If-statements count is within range ({func['num_if']})")
+
+    # Check loops
     if func["num_loops"] > baseline["avg_loops"] * THRESHOLD_FACTOR:
-        alerts.append(f"Too many loops ({func['num_loops']})")
-    
+        alerts.append(f"❗ Too many loops ({func['num_loops']})")
+    else:
+        alerts.append(f"✅ Loop usage is within range ({func['num_loops']})")
+
+    # Check function calls
     if func["num_calls"] > baseline["avg_calls"] * THRESHOLD_FACTOR:
-        alerts.append(f"Too many function calls ({func['num_calls']})")
-    
+        alerts.append(f"❗ Too many function calls ({func['num_calls']})")
+    else:
+        alerts.append(f"✅ Function calls are within range ({func['num_calls']})")
+
+    # Check returns
     if func["num_returns"] > baseline["avg_returns"] * THRESHOLD_FACTOR:
-        alerts.append(f"Too many return statements ({func['num_returns']})")
+        alerts.append(f"❗ Too many return statements ({func['num_returns']})")
+    else:
+        alerts.append(f"✅ Return statement count is within range ({func['num_returns']})")
 
+    # Check comments
     if func.get("num_comments", 0) < baseline["avg_comments"] * 0.5:
-        alerts.append("Too few comments")
+        alerts.append("❗ Too few comments")
+    else:
+        alerts.append("✅ Adequate number of comments")
 
+    # Check docstring
     if not func.get("has_docstring", False):
-        alerts.append("Missing docstring")
+        alerts.append("❗ Missing docstring")
+    else:
+        alerts.append("✅ Docstring is present")
 
+    # Check try-except
     if not func.get("has_try", False):
-        alerts.append("No try block (baseline ratio: {:.2f})".format(baseline["try_block_ratio"]))
+        alerts.append("❗ No try block (baseline ratio: {:.2f})".format(baseline["try_block_ratio"]))
+    else:
+        alerts.append("✅ Try-except block is present")
 
     return alerts
 
