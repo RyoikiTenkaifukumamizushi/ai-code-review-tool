@@ -19,6 +19,7 @@
     "bootstrap": "^5.3.5",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-markdown": "^10.1.0",
     "react-split": "^2.0.14"
   },
   "devDependencies": {

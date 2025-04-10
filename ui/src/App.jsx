@@ -2,6 +2,7 @@ import { useRef, useState } from 'react';
 import CodeMirror from '@uiw/react-codemirror';
 import { python } from '@codemirror/lang-python';
 import AttachFileIcon from '@mui/icons-material/AttachFile';
+import ReactMarkdown from 'react-markdown';
 import './App.css';
 
 function App() {
@@ -11,44 +12,59 @@ function App() {
   const [file, setFile] = useState(null);
   const [showOutput, setShowOutput] = useState(false);
   const fileInputRef = useRef();
-
   const [leftWidth, setLeftWidth] = useState(50); // in %
 
   const handleMouseDown = (e) => {
     const startX = e.clientX;
     const startWidth = leftWidth;
-  
+
     const handleMouseMove = (e) => {
       const delta = e.clientX - startX;
       const newLeft = Math.min(80, Math.max(20, startWidth + (delta / window.innerWidth) * 100));
       setLeftWidth(newLeft);
     };
-  
+
     const handleMouseUp = () => {
       window.removeEventListener('mousemove', handleMouseMove);
       window.removeEventListener('mouseup', handleMouseUp);
     };
-  
+
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
   };
-  
-  
-  
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (code.trim() === "" && !file) {
       setFeedback("⚠️ Please enter some code to review.");
       return;
     }
+
     setLoading(true);
     setFeedback("");
     setShowOutput(true);
 
-    setTimeout(() => {
-      setLoading(false);
-      setFeedback("✅ Good use of a function! Consider adding type hints for better clarity.");
-    }, 2000);
+    try {
+      const formData = new FormData();
+
+      if (file) {
+        formData.append("file", file);
+      } else {
+        formData.append("code", code);
+      }
+
+      const response = await fetch("http://localhost:8000/submit/", {
+        method: "POST",
+        body: formData,
+      });
+
+      const result = await response.text();
+      setFeedback(result.replace(/\\n/g, '\n')); // fix for escaped \n
+    } catch (err) {
+      setFeedback("❌ Error during code review.");
+      console.error(err);
+    }
+
+    setLoading(false);
   };
 
   const handleFileChange = (e) => {
@@ -105,18 +121,16 @@ function App() {
             </div>
           )}
 
-        <div className="submit-wrapper">
-          <button onClick={handleSubmit} className="btn-gradient">
-            🚀 Submit for Review
-          </button>
-        </div>
-
+          <div className="submit-wrapper">
+            <button onClick={handleSubmit} className="btn-gradient">
+              🚀 Submit for Review
+            </button>
+          </div>
         </div>
 
         {showOutput && (
           <>
             <div className="resizer" onMouseDown={handleMouseDown} />
-
             <div className="output-section" style={{ width: `${100 - leftWidth}%` }}>
               <div className="feedback-box">
                 {loading ? (
@@ -125,7 +139,7 @@ function App() {
                     <p>Analyzing your code...</p>
                   </div>
                 ) : (
-                  feedback || "Feedback will appear here."
+                  <ReactMarkdown>{feedback || "Feedback will appear here."}</ReactMarkdown>
                 )}
               </div>
             </div>

@@ -1,34 +1,15 @@
 {
-    "code1_function_info.json": [
+    "pasted_code_function_info.json": [
         {
-            "function": "process_data",
+            "function": "greet",
             "issues": [
                 "Missing docstring",
                 "No try block (baseline ratio: 0.12)"
             ]
-        }
-    ],
-    "code2_function_info.json": [
+        },
         {
-            "function": "fetch_data",
+            "function": "add",
             "issues": [
-                "Too many lines (10 > avg 4.35)",
-                "Too many if-statements (1)",
-                "Too many loops (1)",
-                "Too many function calls (4)",
-                "Too many return statements (2)",
-                "Missing docstring"
-            ]
-        }
-    ],
-    "code3_function_info.json": [
-        {
-            "function": "calculate_average",
-            "issues": [
-                "Too many lines (7 > avg 4.35)",
-                "Too many if-statements (1)",
-                "Too many loops (1)",
-                "Too many return statements (2)",
                 "Missing docstring",
                 "No try block (baseline ratio: 0.12)"
             ]

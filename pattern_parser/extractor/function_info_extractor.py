@@ -116,8 +116,8 @@ def extract_from_all_files(input_folder, output_folder):
 
 if __name__ == "__main__":
     base_path = os.path.dirname(os.path.abspath(__file__))  # Not dirname(dirname(...))
-    input_folder = os.path.join(base_path, "..", "examples")
-    output_folder = os.path.join(base_path, "..", "outputs")
+    input_folder = os.path.join(base_path, "..", "new_codes")
+    output_folder = os.path.join(base_path, "..", "new_outputs")
     input_folder = os.path.abspath(input_folder)
     output_folder = os.path.abspath(output_folder)
 

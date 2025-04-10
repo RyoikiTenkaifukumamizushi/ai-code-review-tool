@@ -49,7 +49,10 @@ html, body, #root {
 
 .output-section {
   padding-left: 1rem;
-  overflow-y: auto;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
 }
 
 .output-section::-webkit-scrollbar {
@@ -123,15 +126,35 @@ html, body, #root {
 }
 
 .feedback-box {
-  background-color: #1f2937;
-  border: 1px solid #fde68a;
-  color: #facc15;
+  background-color: #111827; /* Deep dark */
+  border: 1px solid #374151; /* Subtle border */
+  color: #e5e7eb; /* Light grey text */
   border-radius: 10px;
   padding: 1rem;
-  font-size: 0.95rem;
-  box-shadow: 0 0 10px rgba(251, 191, 36, 0.3);
-  max-height: 100%;
+  font-size: 1.25rem;
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.05);
   overflow-y: auto;
+  flex: 1;
+  white-space: pre-wrap;
+  max-height: 80vh;
+  line-height: 1.5;
+  font-family: 'Fira Code', monospace;
+  animation: fadeIn 0.4s ease-in-out;
+}
+
+.feedback-box strong,
+.feedback-box b {
+  color: #facc15; /* Golden highlights */
+}
+
+.feedback-box ul {
+  list-style: none;
+  padding-left: 1rem;
+}
+.feedback-box li::before {
+  content: "•";
+  color: #facc15;
+  margin-right: 0.5rem;
 }
 
 .spinner-container {
@@ -148,6 +171,13 @@ html, body, #root {
   border-radius: 50%;
   animation: spin 1s linear infinite;
 }
+
+@keyframes fadeInLine {
+  to {
+    opacity: 1;
+  }
+}
+
 
 @keyframes spin {
   to {
