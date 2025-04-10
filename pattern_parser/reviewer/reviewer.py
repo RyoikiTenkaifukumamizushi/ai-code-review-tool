@@ -1,36 +1,22 @@
 import google.generativeai as genai
 import json
 import os
-
-# Configure Gemini API
-genai.configure(api_key="AIzaSyA3_F-cCPs-ZNuixetN463BVRqyPdWVjIk")  # Replace with your actual key
-
-# Load Gemini model once
-model = genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
-
+# BOMBARIRO CROCODILO
+genai.configure(api_key="AIzaSyA3_F-cCPs-ZNuixetN463BVRqyPdWVjIk")  
+model=genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 def run_review():
-    # Paths
-    base_dir = os.path.dirname(__file__)
-    json_dir = os.path.join(base_dir, "..", "new_outputs")
-    output_dir = os.path.join(base_dir, "..", "review_results")
-
-    # Create output folder if not exists
+    base_dir=os.path.dirname(__file__)
+    json_dir=os.path.join(base_dir, "..", "new_outputs")
+    output_dir=os.path.join(base_dir, "..", "review_results")
     os.makedirs(output_dir, exist_ok=True)
-
-    review_output = ""  # Collect output to return
-
-    # Loop through JSON files (specifically new_code_analysis.json)
+    review_output=""  
     for file_name in os.listdir(json_dir):
-        if file_name == "new_code_analysis.json":
-            json_path = os.path.join(json_dir, file_name)
-
-            # Load the JSON data
+        if file_name=="new_code_analysis.json":
+            json_path=os.path.join(json_dir, file_name)
             with open(json_path, "r") as f:
                 json_data = json.load(f)
-
-            # Prepare prompt
             prompt = f"""
-You are a helpful and experienced code reviewer bot.
+You are a very helpful and experienced code reviewer bot.
 
 I will give you an analysis of a Python file in JSON format. It includes details about functions and the expected coding style of the project.
 
@@ -41,23 +27,15 @@ Use a checklist format with ✅ or ❌ for each item per function.
 JSON:
 {json.dumps(json_data, indent=2)}
 """
-
-            # Generate content
             print(f"Reviewing: {file_name}...")
             response = model.generate_content(prompt)
-
-            # Write result to .txt file
             output_file = os.path.splitext(file_name)[0] + "_review.txt"
             output_path = os.path.join(output_dir, output_file)
-
             with open(output_path, "w", encoding="utf-8") as out_file:
                 out_file.write(response.text)
-
             review_output = response.text
             print(f"✅ Review written to: {output_path}")
-
     return review_output
-
-# Optional: run automatically when script is executed directly
+#TRALALERO TRALALA
 if __name__ == "__main__":
     run_review()

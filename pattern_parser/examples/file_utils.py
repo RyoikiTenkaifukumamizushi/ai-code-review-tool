@@ -4,7 +4,6 @@ def read_file(file_path):
             return file.read()
     except FileNotFoundError:
         return "File not found."
-
 def write_file(file_path, content):
     with open(file_path, 'w') as file:
         file.write(content)
