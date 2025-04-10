@@ -221,6 +221,105 @@ html, body, #root {
 
 .submit-wrapper {
   display: flex;
-  justify-content: center;
-  margin-top: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 1.5rem;
+  padding: 0 1rem;
+  gap: 1rem; /* space between buttons */
 }
+
+.submit-btn,
+.download-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75rem 1.5rem;
+  border-radius: 9999px;
+  background-color: black;
+  color: white;
+  font-family: monospace;
+  letter-spacing: 0.05em;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s ease;
+  overflow: hidden;
+}
+
+.submit-btn:hover,
+.download-btn:hover {
+  transform: scale(1.05);
+}
+
+.border-glow {
+  position: absolute;
+  inset: 0;
+  border: 2px solid transparent;
+  border-radius: 9999px;
+  animation: border-glow 2s infinite;
+  z-index: 1;
+}
+
+.trail-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #3b82f6, #a855f7, #ec4899);
+  filter: blur(8px);
+  opacity: 0;
+  animation: none;
+  z-index: 0;
+}
+
+.submit-btn:hover .trail-glow,
+.download-btn:hover .trail-glow {
+  opacity: 0.7;
+  animation: border-light 2s linear infinite;
+}
+
+.pulse-glow {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: linear-gradient(to right, #3b82f6, #d946ef);
+  opacity: 0.2;
+  animation: pulse 2s infinite;
+  z-index: 0;
+}
+
+.btn-content {
+  position: relative;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.875rem;
+}
+
+/* Animations */
+@keyframes border-glow {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: #60a5fa;
+  }
+}
+
+@keyframes border-light {
+  0% {
+    transform: translateX(-100%);
+  }
+  100% {
+    transform: translateX(100%);
+  }
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 0.2;
+  }
+  50% {
+    opacity: 0.4;
+  }
+}
+

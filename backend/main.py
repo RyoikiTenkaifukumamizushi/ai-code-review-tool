@@ -1,15 +1,31 @@
 from fastapi import FastAPI, UploadFile, Form
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
 import os
 import shutil
 import subprocess
 app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:5173"],
+    allow_origins=["http://localhost:5174"],
     allow_methods=["*"],
     allow_headers=["*"],
 )
+@app.get("/download-review/")
+def download_review():
+    # Get absolute path to project root
+    base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_path = os.path.join(base_dir, "pattern_parser", "review_results", "new_code_analysis_review.txt")
+
+    print(f"Looking for review file at: {file_path}")  # <--- Add this line
+
+    if os.path.exists(file_path):
+        return FileResponse(
+            path=file_path,
+            filename="code_review.txt",
+            media_type='text/plain'
+        )
+    return {"error": "Review file not found"}
 @app.post("/submit/")
 async def submit_code(code: str = Form(None), file: UploadFile = None):
     base_dir = os.path.dirname(__file__)

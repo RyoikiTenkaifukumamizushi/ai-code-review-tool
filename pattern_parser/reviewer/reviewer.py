@@ -2,7 +2,7 @@ import google.generativeai as genai
 import json
 import os
 # BOMBARIRO CROCODILO
-genai.configure(api_key="AIzaSyA3_F-cCPs-ZNuixetN463BVRqyPdWVjIk")  
+genai.configure(api_key="AIzaSyB2Sfec6QJ-e_2yCCinG5lP2o-IqAv8lQI")  
 model=genai.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 def run_review():
     base_dir=os.path.dirname(__file__)

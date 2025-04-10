@@ -32,7 +32,24 @@ function App() {
     window.addEventListener('mousemove', handleMouseMove);
     window.addEventListener('mouseup', handleMouseUp);
   };
-
+  const handleDownload = async () => {
+    try {
+      const response = await fetch("http://localhost:8000/download-review/");
+      const blob = await response.blob();
+      const url = window.URL.createObjectURL(blob);
+  
+      const link = document.createElement("a");
+      link.href = url;
+      link.setAttribute("download", "code_review.txt");
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error("Download failed:", error);
+    }
+  };  
+  
   const handleSubmit = async () => {
     if (code.trim() === "" && !file) {
       setFeedback("⚠️ Please enter some code to review.");
@@ -123,28 +140,37 @@ function App() {
             </div>
           )}
 
-          <div className="submit-wrapper">
+        <div className="submit-wrapper">
+          {/* Submit Button */}
           <button
-          onClick={handleSubmit}
-          className="relative inline-flex items-center justify-center px-6 py-3 rounded-full bg-black text-white font-mono tracking-wider shadow-xl transition-transform duration-300 hover:scale-105 focus:outline-none overflow-hidden group"
+            onClick={handleSubmit}
+            className="submit-btn"
           >
-          {/* Glitchy animated border */}
-          <span className="absolute inset-0 rounded-full border-2 border-transparent group-hover:border-blue-400 animate-border-glow"></span>
-
-          {/* Border light trail */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 via-purple-500 to-pink-500 blur-md opacity-0 group-hover:opacity-70 group-hover:animate-border-light"></span>
-
-          {/* Pulsing AI Core Glow */}
-          <span className="absolute inset-0 rounded-full bg-gradient-to-r from-blue-500 to-fuchsia-500 opacity-20 group-hover:opacity-30 animate-pulse"></span>
-
-          {/* Foreground content */}
-          <span className="relative z-10 flex items-center gap-2 text-sm">
-          🤖 Submit for Review
-          </span>
+            {/* Glitchy animated border */}
+            <span className="border-glow"></span>
+            <span className="trail-glow"></span>
+            <span className="pulse-glow"></span>
+            <span className="btn-content">
+              🤖 Submit for Review
+            </span>
           </button>
 
+          {/* Download Button */}
+          <button
+            onClick={handleDownload}
+            className="download-btn"
+          >
+            <span className="border-glow"></span>
+            <span className="trail-glow"></span>
+            <span className="pulse-glow"></span>
+            <span className="btn-content">
+              📥 Download Review
+            </span>
+          </button>
+        </div>
 
-          </div>
+
+
         </div>
 
         {showOutput && (
