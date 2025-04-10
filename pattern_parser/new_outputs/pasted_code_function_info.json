@@ -2,7 +2,7 @@
     {
         "name": "greet",
         "args": 1,
-        "lines": 3,
+        "lines": 5,
         "has_docstring": false,
         "num_if": 0,
         "num_loops": 0,
@@ -17,7 +17,7 @@
     {
         "name": "add",
         "args": 2,
-        "lines": 3,
+        "lines": 5,
         "has_docstring": false,
         "num_if": 0,
         "num_loops": 0,

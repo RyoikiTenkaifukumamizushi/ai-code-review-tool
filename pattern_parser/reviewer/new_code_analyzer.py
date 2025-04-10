@@ -1,8 +1,30 @@
 import os
+import ast
 import json
 
 THRESHOLD_FACTOR = 1.5  # Flag if attribute is 1.5x more than the baseline
+PY_CODE_FOLDER = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "new_codes"))
+def check_syntax(json_path):
+    py_filename = os.path.basename(json_path).replace("_function_info.json", ".py")
+    py_path = os.path.join(PY_CODE_FOLDER, py_filename)
 
+    if not os.path.exists(py_path):
+        return {"error": f"Python file not found: {py_path}"}
+
+    try:
+        with open(py_path, "r", encoding="utf-8") as f:
+            source = f.read()
+        ast.parse(source)
+        return None  # No syntax error
+    except SyntaxError as e:
+        return {
+            "message": str(e),
+            "line": e.lineno,
+            "offset": e.offset,
+            "text": e.text.strip() if e.text else ""
+        }
+
+        
 def load_baseline(baseline_path):
     with open(baseline_path, "r", encoding="utf-8") as f:
         return json.load(f)
@@ -60,6 +82,7 @@ def analyze_function_against_baseline(func, baseline):
 
     return alerts
 
+
 def analyze_file(file_path, baseline):
     with open(file_path, "r", encoding="utf-8") as f:
         functions = json.load(f)
@@ -80,11 +103,26 @@ def analyze_folder(folder_path, baseline_path):
     for filename in os.listdir(folder_path):
         if filename.endswith("_function_info.json"):
             file_path = os.path.join(folder_path, filename)
+
+            # ✅ Syntax check
+            syntax_issue = check_syntax(file_path)
+            syntax_result = {
+                "file": filename.replace("_function_info.json", ".py"),
+                "syntax": "✅ No syntax errors found"
+            }
+            if syntax_issue:
+                syntax_result["syntax"] = f"❗ Syntax error on line {syntax_issue['line']}: {syntax_issue['message']}"
+                syntax_result["code"] = syntax_issue["text"]
+
             print(f"🔍 Analyzing {filename}")
             analysis = analyze_file(file_path, baseline)
-            flagged_results[filename] = analysis
+            flagged_results[filename] = {
+                "syntax_check": syntax_result,
+                "functions": analysis
+            }
 
     return flagged_results
+
 
 def save_analysis(output_path, analysis):
     with open(output_path, "w", encoding="utf-8") as f:

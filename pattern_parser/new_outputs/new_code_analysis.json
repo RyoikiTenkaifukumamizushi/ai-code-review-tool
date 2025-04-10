@@ -1,30 +1,36 @@
 {
-    "pasted_code_function_info.json": [
-        {
-            "function": "greet",
-            "issues": [
-                "\u2705 Number of lines is within range (3 \u2264 6.53)",
-                "\u2705 If-statements count is within range (0)",
-                "\u2705 Loop usage is within range (0)",
-                "\u2705 Function calls are within range (0)",
-                "\u2705 Return statement count is within range (1)",
-                "\u2705 Adequate number of comments",
-                "\u2757 Missing docstring",
-                "\u2757 No try block (baseline ratio: 0.12)"
-            ]
+    "pasted_code_function_info.json": {
+        "syntax_check": {
+            "file": "pasted_code.py",
+            "syntax": "\u2705 No syntax errors found"
         },
-        {
-            "function": "add",
-            "issues": [
-                "\u2705 Number of lines is within range (3 \u2264 6.53)",
-                "\u2705 If-statements count is within range (0)",
-                "\u2705 Loop usage is within range (0)",
-                "\u2705 Function calls are within range (0)",
-                "\u2705 Return statement count is within range (1)",
-                "\u2705 Adequate number of comments",
-                "\u2757 Missing docstring",
-                "\u2757 No try block (baseline ratio: 0.12)"
-            ]
-        }
-    ]
+        "functions": [
+            {
+                "function": "greet",
+                "issues": [
+                    "\u2705 Number of lines is within range (5 \u2264 6.53)",
+                    "\u2705 If-statements count is within range (0)",
+                    "\u2705 Loop usage is within range (0)",
+                    "\u2705 Function calls are within range (0)",
+                    "\u2705 Return statement count is within range (1)",
+                    "\u2705 Adequate number of comments",
+                    "\u2757 Missing docstring",
+                    "\u2757 No try block (baseline ratio: 0.12)"
+                ]
+            },
+            {
+                "function": "add",
+                "issues": [
+                    "\u2705 Number of lines is within range (5 \u2264 6.53)",
+                    "\u2705 If-statements count is within range (0)",
+                    "\u2705 Loop usage is within range (0)",
+                    "\u2705 Function calls are within range (0)",
+                    "\u2705 Return statement count is within range (1)",
+                    "\u2705 Adequate number of comments",
+                    "\u2757 Missing docstring",
+                    "\u2757 No try block (baseline ratio: 0.12)"
+                ]
+            }
+        ]
+    }
 }
