@@ -1,116 +1,106 @@
 import os
 import ast
 import json
-THRESHOLD_FACTOR=1.5  
-PY_CODE_FOLDER=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "new_codes"))
-def check_syntax(json_path):
-    py_filename=os.path.basename(json_path).replace("_function_info.json", ".py")
-    py_path=os.path.join(PY_CODE_FOLDER, py_filename)
-    if not os.path.exists(py_path):
-        return{"error": f"Python file not found: {py_path}"}
+A=1.5
+B=os.path.abspath(os.path.join(os.path.dirname(__file__), "..", "new_codes"))
+def C(D):
+    E=os.path.basename(D).replace("_function_info.json", ".py")
+    F=os.path.join(B, E)
+    if not os.path.exists(F):
+        return{"error": f"Python file not found: {F}"}
     try:
-        with open(py_path, "r", encoding="utf-8") as f:
-            source=f.read()
-        ast.parse(source)
-        return None  
-    except SyntaxError as e:
+        with open(F, "r", encoding="utf-8") as G:
+            H=G.read()
+        ast.parse(H)
+        return None
+    except SyntaxError as I:
         return{
-            "message": str(e),
-            "line": e.lineno,
-            "offset": e.offset,
-            "text": e.text.strip() if e.text else ""
+            "message": str(I),
+            "line": I.lineno,
+            "offset": I.offset,
+            "text": I.text.strip() if I.text else ""
         }
-def load_baseline(baseline_path):
-    with open(baseline_path, "r", encoding="utf-8") as f:
-        return json.load(f)
-def analyze_function_against_baseline(func, baseline):
-    alerts = []
 
-    # Check number of lines
-    if func["lines"] > baseline["avg_lines"] :
-        alerts.append(f"❗ Too many lines ({func['lines']} > avg {baseline['avg_lines']:.2f})")
-    else:
-        alerts.append(f"✅ Number of lines is within range ({func['lines']} ≤ {baseline['avg_lines'] * THRESHOLD_FACTOR:.2f})")
+def J(K):
+    with open(K, "r", encoding="utf-8") as L:
+        return json.load(L)
 
-    # Check if-statements
-    if func["num_if"] > baseline["avg_if"] :
-        alerts.append(f"❗ Too many if-statements ({func['num_if']})")
+def M(N, O):
+    P=[]
+    if N["lines"]>O["avg_lines"]:
+        P.append(f"❗ Too many lines ({N['lines']} > avg {O['avg_lines']:.2f})")
     else:
-        alerts.append(f"✅ If-statements count is within range ({func['num_if']})")
+        P.append(f"✅ Number of lines is within range ({N['lines']} ≤ {O['avg_lines'] * A:.2f})")
 
-    # Check loops
-    if func["num_loops"] > baseline["avg_loops"] :
-        alerts.append(f"❗ Too many loops ({func['num_loops']})")
+    if N["num_if"]>O["avg_if"]:
+        P.append(f"❗ Too many if-statements ({N['num_if']})")
     else:
-        alerts.append(f"✅ Loop usage is within range ({func['num_loops']})")
-
-    # Check function calls
-    if func["num_calls"] > baseline["avg_calls"] :
-        alerts.append(f"❗ Too many function calls ({func['num_calls']})")
+        P.append(f"✅ If-statements count is within range ({N['num_if']})")
+    if N["num_loops"]>O["avg_loops"]:
+        P.append(f"❗ Too many loops ({N['num_loops']})")
     else:
-        alerts.append(f"✅ Function calls are within range ({func['num_calls']})")
-
-    # Check returns
-    if func["num_returns"] > baseline["avg_returns"] :
-        alerts.append(f"❗ Too many return statements ({func['num_returns']})")
+        P.append(f"✅ Loop usage is within range ({N['num_loops']})")
+    if N["num_calls"]>O["avg_calls"]:
+        P.append(f"❗ Too many function calls ({N['num_calls']})")
     else:
-        alerts.append(f"✅ Return statement count is within range ({func['num_returns']})")
-    if func.get("num_comments", 0) < baseline["avg_comments"] * 0.5:
-        alerts.append("❗ Too few comments")
+        P.append(f"✅ Function calls are within range ({N['num_calls']})")
+    if N["num_returns"]>O["avg_returns"]:
+        P.append(f"❗ Too many return statements ({N['num_returns']})")
     else:
-        alerts.append("✅ Adequate number of comments")
-    if not func.get("has_docstring", False):
-        alerts.append("❗ Missing docstring")
+        P.append(f"✅ Return statement count is within range ({N['num_returns']})")
+    if N.get("num_comments", 0)<O["avg_comments"] * 0.5:
+        P.append("❗ Too few comments")
     else:
-        alerts.append("✅ Docstring is present")
-    if not func.get("has_try", False):
-        alerts.append("❗ No try block (baseline ratio: {:.2f})".format(baseline["try_block_ratio"]))
+        P.append("✅ Adequate number of comments")
+    if not N.get("has_docstring", False):
+        P.append("❗ Missing docstring")
     else:
-        alerts.append("✅ Try-except block is present")
-    return alerts
-
-
-def analyze_file(file_path, baseline):
-    with open(file_path, "r", encoding="utf-8") as f:
-        functions=json.load(f)
-    results = []
-    for func in functions:
-        issues=analyze_function_against_baseline(func, baseline)
-        results.append({
-            "function": func["name"],
-            "issues": issues
+        P.append("✅ Docstring is present")
+    if not N.get("has_try", False):
+        P.append("❗ No try block (baseline ratio: {:.2f})".format(O["try_block_ratio"]))
+    else:
+        P.append("✅ Try-except block is present")
+    return P
+def Q(R, S):
+    with open(R, "r", encoding="utf-8") as T:
+        U=json.load(T)
+    V=[]
+    for W in U:
+        X=M(W, S)
+        V.append({
+            "function": W["name"],
+            "issues": X
         })
-    return results
-
-def analyze_folder(folder_path, baseline_path):
-    baseline=load_baseline(baseline_path)
-    flagged_results={}
-    for filename in os.listdir(folder_path):
-        if filename.endswith("_function_info.json"):
-            file_path=os.path.join(folder_path, filename)
-            syntax_issue=check_syntax(file_path)
-            syntax_result={
-                "file": filename.replace("_function_info.json", ".py"),
+    return V
+def Y(Z, a):
+    b=J(a)
+    c={}
+    for d in os.listdir(Z):
+        if d.endswith("_function_info.json"):
+            e=os.path.join(Z, d)
+            f=C(e)
+            g={
+                "file": d.replace("_function_info.json", ".py"),
                 "syntax": "✅ No syntax errors found"
             }
-            if syntax_issue:
-                syntax_result["syntax"]=f"❗ Syntax error on line {syntax_issue['line']}: {syntax_issue['message']}"
-                syntax_result["code"]=syntax_issue["text"]
-            print(f"🔍 Analyzing {filename}")
-            analysis=analyze_file(file_path, baseline)
-            flagged_results[filename]={
-                "syntax_check": syntax_result,
-                "functions": analysis
+            if f:
+                g["syntax"]=f"❗ Syntax error on line {f['line']}: {f['message']}"
+                g["code"]=f["text"]
+            print(f"🔍 Analyzing {d}")
+            h=Q(e, b)
+            c[d]={
+                "syntax_check": g,
+                "functions": h
             }
-    return flagged_results
-def save_analysis(output_path, analysis):
-    with open(output_path, "w", encoding="utf-8") as f:
-        json.dump(analysis, f, indent=4)
-    print(f"✅ Analysis saved to: {output_path}")
-if __name__ == "__main__":
-    base_path=os.path.dirname(os.path.abspath(__file__))
-    input_folder=os.path.join(base_path, "..", "new_outputs")
-    baseline_file=os.path.join(base_path, "..", "outputs", "baseline.json")
-    output_file=os.path.join(base_path, "..", "new_outputs", "new_code_analysis.json")
-    results=analyze_folder(os.path.abspath(input_folder), os.path.abspath(baseline_file))
-    save_analysis(os.path.abspath(output_file), results)
+    return c
+def i(j, k):
+    with open(j, "w", encoding="utf-8") as l:
+        json.dump(k, l, indent=4)
+    print(f"✅ Analysis saved to: {j}")
+if __name__=="__main__":
+    m=os.path.dirname(os.path.abspath(__file__))
+    n=os.path.join(m, "..", "new_outputs")
+    o=os.path.join(m, "..", "outputs", "baseline.json")
+    p=os.path.join(m, "..", "new_outputs", "new_code_analysis.json")
+    q=Y(os.path.abspath(n), os.path.abspath(o))
+    i(os.path.abspath(p), q)

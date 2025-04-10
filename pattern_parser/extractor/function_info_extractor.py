@@ -1,100 +1,97 @@
 import ast
 import os
 import json
-class FunctionAnalyzer(ast.NodeVisitor):
-    def __init__(self):
-        self.num_if=0
-        self.num_loops=0
-        self.num_calls=0
-        self.num_returns=0
-        self.has_try=False
-        self.loop_locations=[]
-    def visit_If(self, node):
-        self.num_if+=1
-        self.generic_visit(node)
-    def visit_For(self, node):
-        self.num_loops+=1
-        self.loop_locations.append({"type": "for", "lineno": node.lineno})
-        self.generic_visit(node)
-    def visit_While(self, node):
-        self.num_loops+=1
-        self.loop_locations.append({"type": "while", "lineno": node.lineno})
-        self.generic_visit(node)
-    def visit_Call(self, node):
-        self.num_calls+=1
-        self.generic_visit(node)
-    def visit_Return(self, node):
-        self.num_returns+=1
-        self.generic_visit(node)
-    def visit_Try(self, node):
-        self.has_try=True
-        self.generic_visit(node)
-def calculate_cyclomatic_complexity(node):
-    """
-    Cyclomatic Complexity = 1 + number of decision points (if, for, while, try, etc.)
-    """
-    complexity=1
-    for child in ast.walk(node):
-        if isinstance(child, (ast.If, ast.For, ast.While, ast.And, ast.Or, ast.Try, ast.ExceptHandler)):
-            complexity+=1
-    return complexity
-def count_comments_in_function(source_lines, start_lineno, end_lineno):
-    comment_count=0
-    for i in range(start_lineno-1, end_lineno):
-        stripped=source_lines[i].strip()
-        if stripped.startswith("#"):
-            comment_count+=1
-    return comment_count
-def extract_function_info_from_file(file_path):
-    with open(file_path, "r", encoding="utf-8") as file:
-        source=file.read()
-    source_lines=source.splitlines()
+class A(ast.NodeVisitor):
+    def __init__(a):
+        a.b=0
+        a.c=0
+        a.d=0
+        a.e=0
+        a.f=False
+        a.g=[]
+    def visit_If(a, b):
+        a.b+=1
+        a.generic_visit(b)
+    def visit_For(a, b):
+        a.c+=1
+        a.g.append({"type": "for", "lineno": b.lineno})
+        a.generic_visit(b)
+    def visit_While(a, b):
+        a.c+=1
+        a.g.append({"type": "while", "lineno": b.lineno})
+        a.generic_visit(b)
+    def visit_Call(a, b):
+        a.d+=1
+        a.generic_visit(b)
+    def visit_Return(a, b):
+        a.e+=1
+        a.generic_visit(b)
+    def visit_Try(a, b):
+        a.f=True
+        a.generic_visit(b)
+def B(c):
+    d=1
+    for e in ast.walk(c):
+        if isinstance(e, (ast.If, ast.For, ast.While, ast.And, ast.Or, ast.Try, ast.ExceptHandler)):
+            d+=1
+    return d
+def C(d, e, f):
+    g=0
+    for h in range(e-1, f):
+        i=d[h].strip()
+        if i.startswith("#"):
+            g+=1
+    return g
+def D(e):
+    with open(e, "r", encoding="utf-8") as f:
+        g=f.read()
+    h=g.splitlines()
     try:
-        tree=ast.parse(source)
-    except SyntaxError as e:
-        print(f"[!] Failed to parse {file_path}: {e}")
+        i=ast.parse(g)
+    except SyntaxError as j:
+        print(f"[!] Failed to parse {e}: {j}")
         return []
-    functions_info = []
-    for node in ast.walk(tree):
-        if isinstance(node, ast.FunctionDef):
-            analyzer=FunctionAnalyzer()
-            analyzer.visit(node)
-            start_lineno=node.lineno
-            end_lineno=getattr(node, 'end_lineno', start_lineno+len(node.body))
-            total_lines=end_lineno-start_lineno+1
-            comment_count=count_comments_in_function(source_lines, start_lineno, end_lineno)
-            function_info={
-                "name": node.name,
-                "args": len(node.args.args),
-                "lines": total_lines,
-                "has_docstring": ast.get_docstring(node) is not None,
-                "num_if": analyzer.num_if,
-                "num_loops": analyzer.num_loops,
-                "loop_locations": analyzer.loop_locations,
-                "num_calls": analyzer.num_calls,
-                "num_returns": analyzer.num_returns,
-                "has_try": analyzer.has_try,
-                "cyclomatic_complexity": calculate_cyclomatic_complexity(node),
-                "comment_count": comment_count,
-                "comments_per_line_ratio": round(comment_count / total_lines, 2) if total_lines > 0 else 0.0
+    k=[]
+    for l in ast.walk(i):
+        if isinstance(l, ast.FunctionDef):
+            m=A()
+            m.visit(l)
+            n=l.lineno
+            o=getattr(l, 'end_lineno', n + len(l.body))
+            p=o-n+1
+            q=C(h, n, o)
+            r={
+                "name": l.name,
+                "args": len(l.args.args),
+                "lines": p,
+                "has_docstring": ast.get_docstring(l) is not None,
+                "num_if": m.b,
+                "num_loops": m.c,
+                "loop_locations": m.g,
+                "num_calls": m.d,
+                "num_returns": m.e,
+                "has_try": m.f,
+                "cyclomatic_complexity": B(l),
+                "comment_count": q,
+                "comments_per_line_ratio": round(q / p, 2) if p > 0 else 0.0
             }
-            functions_info.append(function_info)
-    return functions_info
-def extract_from_all_files(input_folder, output_folder):
-    os.makedirs(output_folder, exist_ok=True)
-    for filename in os.listdir(input_folder):
-        if filename.endswith(".py"):
-            file_path=os.path.join(input_folder, filename)
-            print(f"[+] Analyzing: {filename}")
-            function_data=extract_function_info_from_file(file_path)
-            output_filename=f"{os.path.splitext(filename)[0]}_function_info.json"
-            output_path=os.path.join(output_folder, output_filename)
-            with open(output_path, "w", encoding="utf-8") as f:
-                json.dump(function_data, f, indent=4)
-if __name__ == "__main__":
-    base_path=os.path.dirname(os.path.abspath(__file__))  # Not dirname(dirname(...))
-    input_folder=os.path.join(base_path, "..", "new_codes")
-    output_folder=os.path.join(base_path, "..", "new_outputs")
-    input_folder=os.path.abspath(input_folder)
-    output_folder=os.path.abspath(output_folder)
-    extract_from_all_files(input_folder, output_folder)
+            k.append(r)
+    return k
+def E(f, g):
+    os.makedirs(g, exist_ok=True)
+    for h in os.listdir(f):
+        if h.endswith(".py"):
+            i=os.path.join(f, h)
+            print(f"[+] Analyzing: {h}")
+            j=D(i)
+            k=f"{os.path.splitext(h)[0]}_function_info.json"
+            l=os.path.join(g, k)
+            with open(l, "w", encoding="utf-8") as m:
+                json.dump(j, m, indent=4)
+if __name__=="__main__":
+    a=os.path.dirname(os.path.abspath(__file__))
+    b=os.path.join(a, "..", "new_codes")
+    c=os.path.join(a, "..", "new_outputs")
+    b=os.path.abspath(b)
+    c=os.path.abspath(c)
+    E(b, c)
