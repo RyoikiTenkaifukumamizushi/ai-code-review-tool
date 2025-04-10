@@ -178,14 +178,20 @@ function App() {
             <div className="resizer" onMouseDown={handleMouseDown} />
             <div className="output-section" style={{ width: `${100 - leftWidth}%` }}>
               <div className="feedback-box">
-                {loading ? (
-                  <div className="spinner-container">
-                    <div className="spinner" />
-                    <p>Analyzing your code...</p>
-                  </div>
-                ) : (
-                  <ReactMarkdown>{feedback || "Feedback will appear here."}</ReactMarkdown>
-                )}
+              {loading ? (
+              <div className="loading-overlay">
+                <video
+                  src="/ai-thinking.mp4"
+                  autoPlay
+                  loop
+                  muted
+                  className="loading-video"
+                />
+                <p className="loading-msg">Analyzing your code...</p>
+              </div>
+            ) : (
+              <ReactMarkdown>{feedback || "Feedback will appear here."}</ReactMarkdown>
+            )}
               </div>
             </div>
           </>

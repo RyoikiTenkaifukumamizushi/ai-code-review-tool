@@ -1,3 +1,3 @@
-def yoyo(j):
-  return j
-print(yoyo(j))
+def helo(name):
+  return name
+print(helo(2))

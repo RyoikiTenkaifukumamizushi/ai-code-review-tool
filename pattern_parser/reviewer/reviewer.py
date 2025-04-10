@@ -1,7 +1,7 @@
 import google.generativeai as a
 import json
 import os
-a.configure(api_key="AIzaSyA3_F-cCPs-ZNuixetN463BVRqyPdWVjIk")
+a.configure(api_key="AIzaSyCFAAYN7GBROF5CnurdsnSu5S8C3KxIS3I")
 b=a.GenerativeModel(model_name="models/gemini-1.5-pro-latest")
 def c():
     d=os.path.dirname(__file__)

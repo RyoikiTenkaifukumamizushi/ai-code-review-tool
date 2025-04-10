@@ -6,7 +6,7 @@
         },
         "functions": [
             {
-                "function": "yoyo",
+                "function": "helo",
                 "issues": [
                     "\u2705 Number of lines is within range (2 \u2264 6.53)",
                     "\u2705 If-statements count is within range (0)",

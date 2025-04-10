@@ -323,3 +323,38 @@ html, body, #root {
   }
 }
 
+.loading-overlay {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 2rem;
+  height: 100%;
+  animation: fadeIn 0.3s ease-in-out;
+}
+
+.loading-video {
+  width: 400px; /* doubled from 200px */
+  max-width: 100%; /* just in case screen is small */
+  border-radius: 1rem;
+  box-shadow: 0 0 35px rgba(255, 255, 255, 0.15);
+}
+
+.loading-msg {
+  margin-top: 1.5rem;
+  font-size: 1.75rem; /* bigger text */
+  font-weight: 700;
+  color: #ffffff;
+  text-align: center;
+}
+
+/* Optional smooth fade-in */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
