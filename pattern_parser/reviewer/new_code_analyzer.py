@@ -33,31 +33,31 @@ def analyze_function_against_baseline(func, baseline):
     alerts = []
 
     # Check number of lines
-    if func["lines"] > baseline["avg_lines"] * THRESHOLD_FACTOR:
+    if func["lines"] > baseline["avg_lines"] :
         alerts.append(f"❗ Too many lines ({func['lines']} > avg {baseline['avg_lines']:.2f})")
     else:
         alerts.append(f"✅ Number of lines is within range ({func['lines']} ≤ {baseline['avg_lines'] * THRESHOLD_FACTOR:.2f})")
 
     # Check if-statements
-    if func["num_if"] > baseline["avg_if"] * THRESHOLD_FACTOR:
+    if func["num_if"] > baseline["avg_if"] :
         alerts.append(f"❗ Too many if-statements ({func['num_if']})")
     else:
         alerts.append(f"✅ If-statements count is within range ({func['num_if']})")
 
     # Check loops
-    if func["num_loops"] > baseline["avg_loops"] * THRESHOLD_FACTOR:
+    if func["num_loops"] > baseline["avg_loops"] :
         alerts.append(f"❗ Too many loops ({func['num_loops']})")
     else:
         alerts.append(f"✅ Loop usage is within range ({func['num_loops']})")
 
     # Check function calls
-    if func["num_calls"] > baseline["avg_calls"] * THRESHOLD_FACTOR:
+    if func["num_calls"] > baseline["avg_calls"] :
         alerts.append(f"❗ Too many function calls ({func['num_calls']})")
     else:
         alerts.append(f"✅ Function calls are within range ({func['num_calls']})")
 
     # Check returns
-    if func["num_returns"] > baseline["avg_returns"] * THRESHOLD_FACTOR:
+    if func["num_returns"] > baseline["avg_returns"] :
         alerts.append(f"❗ Too many return statements ({func['num_returns']})")
     else:
         alerts.append(f"✅ Return statement count is within range ({func['num_returns']})")

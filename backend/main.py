@@ -22,13 +22,17 @@ async def submit_code(code: str = Form(None), file: UploadFile = None):
 
     # 1. Save code
     if code:
+    # Normalize line endings and remove trailing spaces
+        cleaned_code = "\n".join(line.rstrip() for line in code.replace('\r\n', '\n').split('\n'))
         with open(os.path.join(new_codes_dir, "pasted_code.py"), "w", encoding="utf-8") as f:
-            f.write(code)
+            f.write(cleaned_code)
 
     if file:
         file_path = os.path.join(new_codes_dir, file.filename)
         with open(file_path, "wb") as f_out:
             shutil.copyfileobj(file.file, f_out)
+
+
 
     # 2. Run function_info_extractor to generate JSONs
     subprocess.run(["python", os.path.join(parser_root, "extractor", "function_info_extractor.py")])
