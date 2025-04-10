@@ -6,13 +6,26 @@
         },
         "functions": [
             {
-                "function": "helo",
+                "function": "generate_api_sig",
                 "issues": [
-                    "\u2705 Number of lines is within range (2 \u2264 6.53)",
+                    "\u2757 Too many lines (7 > avg 4.35)",
                     "\u2705 If-statements count is within range (0)",
                     "\u2705 Loop usage is within range (0)",
-                    "\u2705 Function calls are within range (0)",
+                    "\u2757 Too many function calls (7)",
                     "\u2705 Return statement count is within range (1)",
+                    "\u2705 Adequate number of comments",
+                    "\u2757 Missing docstring",
+                    "\u2757 No try block (baseline ratio: 0.12)"
+                ]
+            },
+            {
+                "function": "submit_solution",
+                "issues": [
+                    "\u2757 Too many lines (17 > avg 4.35)",
+                    "\u2705 If-statements count is within range (0)",
+                    "\u2705 Loop usage is within range (0)",
+                    "\u2757 Too many function calls (7)",
+                    "\u2705 Return statement count is within range (0)",
                     "\u2705 Adequate number of comments",
                     "\u2757 Missing docstring",
                     "\u2757 No try block (baseline ratio: 0.12)"
