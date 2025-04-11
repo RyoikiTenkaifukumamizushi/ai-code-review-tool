@@ -1,0 +1,57 @@
+## Code Review Feedback
+
+Here's a breakdown of the feedback for each function, based on the provided analysis:
+
+**Function: `add`**
+
+* ✅ Number of lines
+* ✅ If-statement count
+* ✅ Loop usage
+* ✅ Function calls
+* ✅ Return statement count
+* ✅ Comments
+* ❌ Docstring: Please add a docstring explaining the function's purpose, arguments, and return value.  Example:
+  ```python
+  def add(x, y):
+      """Adds two numbers together.
+
+      Args:
+          x: The first number.
+          y: The second number.
+
+      Returns:
+          The sum of x and y.
+      """
+      return x + y
+  ```
+* ❌ Try-Except Block: While not strictly required in this simple case, consider adding a try-except block to handle potential errors, especially if the function might be used with user-provided input in the future. Example:
+  ```python
+  def add(x, y):
+      """Adds two numbers together."""
+      try:
+          return x + y
+      except TypeError:
+          return "Invalid input: Both arguments must be numbers."
+      ```
+
+
+**Function: `subract` (Note: Possible typo - should be `subtract`)**
+
+* ❌ Number of lines:  The function is slightly longer than the average.  See if you can refactor it to be more concise, if possible. This might also resolve the issues below.
+* ❌ If-statements: Consider if the if-statement is truly necessary, or if it can be simplified.  Excessive branching can make code harder to read and maintain.
+* ✅ Loop usage
+* ✅ Function calls
+* ❌ Return statements:  Having multiple return statements can sometimes make logic harder to follow.  Try to refactor to use a single return point if it improves readability.
+* ✅ Comments
+* ❌ Docstring:  Please add a docstring explaining the function's purpose, arguments, and return value.  Similar example as above for the `add` function.
+* ❌ Try-Except Block: Similar to `add`, while not strictly required in a simple subtraction, consider adding a try-except block for potential errors, especially if inputs might be dynamic in the future.
+
+
+
+**General Recommendations:**
+
+* **Consistency:**  Ensure consistent naming across your project.  The apparent typo in `subract` highlights the importance of this.
+* **Logging:** For more complex functions, consider adding logging statements to aid in debugging and monitoring.
+* **Testability:**  Design your functions with testability in mind.  Simple, well-defined functions with clear inputs and outputs are much easier to test.
+
+By addressing these points, you can improve the readability, maintainability, and robustness of your code.  Let me know if you have any further questions!

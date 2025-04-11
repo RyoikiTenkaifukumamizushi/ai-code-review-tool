@@ -1,0 +1,1 @@
+The provided code has a syntax error, preventing analysis of any functions.  Please correct the syntax error (`def sub(a-b):` should likely be `def sub(a, b):`) and resubmit the code for review.  I'm ready to help once the code is syntactically correct.

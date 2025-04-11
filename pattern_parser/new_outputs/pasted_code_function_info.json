@@ -1,31 +1,16 @@
 [
     {
-        "name": "generate_api_sig",
+        "name": "fetch_weather",
         "args": 1,
-        "lines": 7,
+        "lines": 6,
         "has_docstring": false,
-        "num_if": 0,
+        "num_if": 1,
         "num_loops": 0,
         "loop_locations": [],
-        "num_calls": 7,
-        "num_returns": 1,
+        "num_calls": 2,
+        "num_returns": 2,
         "has_try": false,
-        "cyclomatic_complexity": 1,
-        "comment_count": 0,
-        "comments_per_line_ratio": 0.0
-    },
-    {
-        "name": "submit_solution",
-        "args": 0,
-        "lines": 17,
-        "has_docstring": false,
-        "num_if": 0,
-        "num_loops": 0,
-        "loop_locations": [],
-        "num_calls": 7,
-        "num_returns": 0,
-        "has_try": false,
-        "cyclomatic_complexity": 1,
+        "cyclomatic_complexity": 2,
         "comment_count": 0,
         "comments_per_line_ratio": 0.0
     }

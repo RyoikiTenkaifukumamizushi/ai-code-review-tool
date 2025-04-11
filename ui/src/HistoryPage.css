@@ -1,0 +1,86 @@
+/* Overall page layout */
+.history-page {
+  background-color: #0f172a; /* dark slate */
+  color: #f1f5f9; /* light text */
+  min-height: 100vh;
+  padding: 2rem;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+/* Title */
+.history-page h2 {
+  color: #3b82f6; /* blue-500 */
+  margin-bottom: 1rem;
+}
+
+/* Scrollable container */
+.history-scroll-container {
+  max-height: 80vh;
+  overflow-y: auto;
+  padding-right: 10px;
+  background-color: #1f1f1f;
+  border-radius: 8px;
+  border: 1px solid #334155;
+}
+
+/* Each card (clickable) */
+.history-card {
+  background-color: #1e293b; /* dark card */
+  margin-bottom: 1rem;
+  border-left: 4px solid #3b82f6;
+  border-radius: 0.5rem;
+  box-shadow: 0 0 8px rgba(59, 130, 246, 0.2);
+  transition: background-color 0.2s ease;
+  cursor: pointer;
+}
+
+/* On hover */
+.history-card:hover {
+  background-color: #334155;
+}
+
+/* Header row inside card */
+.history-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  border-bottom: 1px solid #475569;
+}
+
+/* Arrow icon */
+.toggle-icon {
+  font-size: 18px;
+  color: #94a3b8; /* slate-400 */
+}
+
+/* Expanded content */
+.history-details {
+  padding: 1rem;
+}
+
+/* Title inside card */
+.history-card h4 {
+  margin: 0;
+  font-size: 1rem;
+  color: #93c5fd; /* light blue */
+}
+
+/* Code and review blocks */
+.code-block,
+.review-block {
+  background-color: #0f172a;
+  color: #e2e8f0;
+  padding: 10px;
+  border-radius: 6px;
+  overflow-x: auto;
+  font-family: "Courier New", Courier, monospace;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+  margin-bottom: 10px;
+}
+
+/* Fallback paragraph style */
+.history-page p {
+  color: #94a3b8; /* slate-400 */
+}

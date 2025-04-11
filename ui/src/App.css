@@ -8,6 +8,52 @@ html, body, #root {
   overflow: hidden;
 }
 
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 16px 24px;
+  background-color: #0f172a;
+  color: #f1f5f9;
+  border-bottom: 1px solid #1e293b;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  border-radius: 0 0 12px 12px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.navbar .logo {
+  font-size: 1.5rem;
+  font-weight: bold;
+  color: #3b82f6;
+}
+
+.navbar a {
+  display: inline-block;
+  padding: 10px 18px;
+  margin-left: 12px;
+  background-color: #1e293b;
+  color: #f1f5f9;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 1rem;
+  transition: all 0.2s ease-in-out;
+}
+
+.navbar a:hover {
+  background-color: #3b82f6;
+  color: #fff;
+  box-shadow: 0 0 10px rgba(59, 130, 246, 0.5);
+  transform: translateY(-1px);
+}
+
+.navbar a:active {
+  transform: scale(0.98);
+  box-shadow: 0 0 6px rgba(59, 130, 246, 0.3);
+}
+
+
+
 .app-wrapper {
   display: flex;
   flex-direction: column;
